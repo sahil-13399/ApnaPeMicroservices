@@ -1,9 +1,13 @@
 package com.apna.customer;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CustomerService {
+
+  @Autowired
+  CustomerRepository customerRepository;
 
 
   public void registerCustomer(CustomerRequest customerRequest) {
@@ -16,5 +20,6 @@ public class CustomerService {
     //todo : check if email is valid
     //todo : check if email is not taken
     //todo : store customer in db
+    customerRepository.save(customer);
   }
 }

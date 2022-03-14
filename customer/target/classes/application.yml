@@ -4,3 +4,16 @@ server:
 spring:
   application:
     name: customer
+  datasource:
+    password: sahil1303
+    url: jdbc:mysql://localhost:3306/customer
+    username: root
+    driver-class-name: com.mysql.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+      show-sql: true

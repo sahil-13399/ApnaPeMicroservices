@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class CustomerController {
 
   @Autowired
-  private CustomerService customerService;
+  CustomerService customerService;
 
   @PostMapping
   public void registerCustomer(@RequestBody CustomerRequest customerRequest) {
