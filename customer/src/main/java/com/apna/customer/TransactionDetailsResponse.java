@@ -6,12 +6,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class CustomerDepositResponse {
+@NoArgsConstructor
+public class TransactionDetailsResponse {
 
-  private Integer customerId;
-  private Integer newBalance;
+  private Integer senderId;
+  private Integer receiverId;
+  private Integer transactionAmount;
+  private Integer senderBalance;
   private LocalDateTime timestamp;
 
 }

@@ -46,8 +46,17 @@ public class CustomerController {
                                                                @PathVariable(name = "customerId")
                                                                    Integer customerId) {
     log.info("Updating customer balance");
-    CustomerDepositResponse customerDepositResponse = customerService.updateBalance(customerId,amount);
-    return new ResponseEntity<>(customerDepositResponse,HttpStatus.OK);
+    CustomerDepositResponse customerDepositResponse =
+        customerService.updateBalance(customerId, amount);
+    return new ResponseEntity<>(customerDepositResponse, HttpStatus.OK);
+  }
+
+  @PostMapping("/transaction")
+  public ResponseEntity<TransactionDetailsResponse> makeTransaction(
+      @RequestBody TransactionRequest transactionRequest) {
+    TransactionDetailsResponse transactionDetailsResponse =
+        customerService.makeTransaction(transactionRequest);
+    return new ResponseEntity<>(transactionDetailsResponse, HttpStatus.ACCEPTED);
   }
 
 }
