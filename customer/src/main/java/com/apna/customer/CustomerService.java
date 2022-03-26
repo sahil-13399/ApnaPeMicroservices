@@ -52,7 +52,7 @@ public class CustomerService {
 
     Customer sender = customerRepository.getById(transactionRequest.getSenderId());
     Customer receiver = customerRepository.getById(transactionRequest.getReceiverId());
-    TransactionDetailsResponse transactionDetailsResponse = null;
+    //TransactionDetailsResponse transactionDetailsResponse = null;
     if (validateBalance(sender, transactionRequest.getTransactionAmount()) == true) {
       sender.setBalance(sender.getBalance() - transactionRequest.getTransactionAmount());
       receiver.setBalance(receiver.getBalance() + transactionRequest.getTransactionAmount());

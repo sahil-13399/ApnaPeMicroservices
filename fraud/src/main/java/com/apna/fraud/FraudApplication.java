@@ -1,4 +1,4 @@
-package fraud;
+package com.apna.fraud;
 
 
 import org.springframework.boot.SpringApplication;

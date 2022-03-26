@@ -1,9 +1,8 @@
-package fraud;
+package com.apna.fraud;
 
 import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 

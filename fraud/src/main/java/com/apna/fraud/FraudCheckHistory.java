@@ -1,4 +1,4 @@
-package fraud;
+package com.apna.fraud;
 
 import java.time.LocalDateTime;
 import javax.persistence.Entity;
