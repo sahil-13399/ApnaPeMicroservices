@@ -1,8 +1,9 @@
 package com.apna.customer.service;
 
+import com.apna.clients.fraud.FraudCheckResponse;
+import com.apna.clients.fraud.FraudClient;
 import com.apna.customer.repository.CustomerRepository;
 import com.apna.customer.exchanges.CustomerRequest;
-import com.apna.customer.exchanges.FraudCheckResponse;
 import com.apna.customer.exchanges.TransactionDetailsResponse;
 import com.apna.customer.exchanges.TransactionRequest;
 import com.apna.customer.dto.Customer;
@@ -18,6 +19,7 @@ public class CustomerService {
 
   private final CustomerRepository customerRepository;
   private final RestTemplate restTemplate;
+  private final FraudClient fraudClient;
 
   public void registerCustomer(CustomerRequest request) {
     Customer customer = Customer.builder()
@@ -29,11 +31,13 @@ public class CustomerService {
     // todo: check if email not taken
     customerRepository.saveAndFlush(customer);
     // todo: check if fraudster
-    FraudCheckResponse fraudCheckResponse = restTemplate.getForObject(
-        "http://fraud/api/v1/fraud-check/{customerId}",
-        FraudCheckResponse.class,
-        customer.getId()
-    );
+//    FraudCheckResponse fraudCheckResponse = restTemplate.getForObject(
+//        "http://fraud/api/v1/fraud-check/{customerId}",
+//        FraudCheckResponse.class,
+//        customer.getId()
+//    );
+
+    FraudCheckResponse fraudCheckResponse = fraudClient.isFraudster(customer.getId());
 
     if (fraudCheckResponse.isFraudulentCustomer()) {
       throw new IllegalStateException("fraudster");
