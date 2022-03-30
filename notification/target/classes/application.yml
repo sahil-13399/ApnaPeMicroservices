@@ -1,9 +1,9 @@
 server:
-  port: 8080
+  port: 8082
 
 spring:
   application:
-    name: customer
+    name: notification
   rabbitmq:
     host: localhost
     password: guest
@@ -14,7 +14,7 @@ spring:
     routingkey: notification.routingkey
   datasource:
     password: sahil1303
-    url: jdbc:mysql://localhost:3306/customer
+    url: jdbc:mysql://localhost:3306/notification
     username: root
     driver-class-name: com.mysql.jdbc.Driver
 
