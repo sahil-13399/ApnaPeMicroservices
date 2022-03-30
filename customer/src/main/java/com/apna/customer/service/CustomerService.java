@@ -21,6 +21,7 @@ public class CustomerService {
   private final CustomerRepository customerRepository;
   private final NotificationClient notificationClient;
   private final FraudClient fraudClient;
+  private final RabbitMqSender rabbitMqSender;
 
   public void registerCustomer(CustomerRequest request) {
     Customer customer = Customer.builder()
@@ -71,16 +72,15 @@ public class CustomerService {
     customerRepository.save(sender);
     customerRepository.save(receiver);
 
-    notificationClient.sendNotification(
-        new NotificationRequest(
-            receiver.getId(),
-            receiver.getFirstName() + " " + receiver.getLastName(),
-            sender.getFirstName() + " " + sender.getLastName(),
-            String.format("Amount %d has been sent from %s to %s",
-                transactionRequest.getTransactionAmount(), sender.getFirstName(),
-                receiver.getFirstName()),
-            transactionRequest.getTransactionAmount()
-        ));
+    rabbitMqSender.send(new NotificationRequest(
+        receiver.getId(),
+        receiver.getFirstName() + " " + receiver.getLastName(),
+        sender.getFirstName() + " " + sender.getLastName(),
+        String.format("Amount %d has been sent from %s to %s",
+            transactionRequest.getTransactionAmount(), sender.getFirstName(),
+            receiver.getFirstName()),
+        transactionRequest.getTransactionAmount()
+    ));
 
     return new TransactionDetailsResponse(sender.getId(), receiver.getId(),
         transactionRequest.getTransactionAmount(),
