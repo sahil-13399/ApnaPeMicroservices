@@ -29,17 +29,8 @@ public class CustomerService {
         .lastName(request.getLastName())
         .email(request.getEmail())
         .balance(0).build();
-    // todo: check if email valid
-    // todo: check if email not taken
     customerRepository.saveAndFlush(customer);
-    // todo: check if fraudster
-//    FraudCheckResponse fraudCheckResponse = restTemplate.getForObject(
-//        "http://fraud/api/v1/fraud-check/{customerId}",
-//        FraudCheckResponse.class,
-//        customer.getId()
-//    );
-
-    FraudCheckResponse fraudCheckResponse = fraudClient.isFraudster(customer.getId());
+    FraudCheckResponse fraudCheckResponse = fraudClient.isFraudster(customer.getId(), request.getEmail());
 
     if (fraudCheckResponse.isFraudulentCustomer()) {
       throw new IllegalStateException("fraudster");
